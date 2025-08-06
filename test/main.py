@@ -1,15 +1,12 @@
+from telegram.ext import Application, CommandHandler
+from config import BOT_TOKEN
 
-#!/usr/bin/env python3
-import os
-import sys
+async def start_handler(update, context):
+    await update.message.reply_text("Привет! Я работаю.")
 
-# Add the current directory to Python path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, current_dir)
+def main():
+    application = Application.builder().token(BOT_TOKEN).build()
+    
+    application.add_handler(CommandHandler("start", start_handler))
 
-# Change to the script directory
-os.chdir(current_dir)
-
-if __name__ == '__main__':
-    from bot import main
-    main()
+    application.run_polling()
